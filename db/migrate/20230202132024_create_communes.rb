@@ -3,7 +3,7 @@ class CreateCommunes < ActiveRecord::Migration[7.0]
     create_table :communes do |t|
       t.string :name
       t.string :code_insee
-      t.references :intercommunality, null: false, foreign_key: true
+      t.references :intercommunality, null: true, foreign_key: true
 
       t.timestamps
     end
