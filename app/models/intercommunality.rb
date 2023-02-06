@@ -5,16 +5,20 @@ class Intercommunality < ApplicationRecord
 	validates :siren, exclusion: ["243 400 017","24340001700"]
 	validates :form, inclusion: ["ca", "cu" ,"cc" ,"met"] 
 
+	before_save :generate_slug
+
 	def communes_hash
-		hash = {}
-		communes.each do |commune|
-			hash[commune.code_insee] = commune.name
+		communes_by_code = {}
+		self.communes.each do |commune|
+			communes_by_code[commune.code_insee] = commune.name
 		end
-		return hash
+		return communes_by_code
 	end
 
+	private
 
-	def method_name
-		
+	def generate_slug
+		self.slug = name.downcase.gsub(" ", "-").parameterize if self.slug.nil?
 	end
+
 end
