@@ -17,4 +17,5 @@ class Commune < ApplicationRecord
     end
     communes_by_code
   end
+  
 end
