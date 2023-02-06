@@ -15,10 +15,18 @@ class Intercommunality < ApplicationRecord
 		return communes_by_code
 	end
 
+	def population
+		sum = 0
+		communes.each do |commune|
+			sum = sum + commune.population
+		end
+		sum
+	end
+
 	private
 
 	def generate_slug
-		self.slug = name.downcase.gsub(" ", "-").parameterize if self.slug.nil?
+		self.slug = name.downcase.gsub(" ", "-").parameterize if self.slug.nil? && name.present?
 	end
 
 end
